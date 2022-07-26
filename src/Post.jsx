@@ -24,9 +24,20 @@ const Post = () => {
   };
 
   let getData = async () => {
-    await fetch(`https://62d647f215ad24cbf2d39b56.mockapi.io/crud`)
+    await fetch('https://62d647f215ad24cbf2d39b56.mockapi.io/crud')
       .then(async (response) => await response.json())
       .then((res) => setData(res));
+  };
+
+  let handalClose = async (id) => {
+    const requestOptions = {
+      method: 'DELETE',
+    };
+
+    await fetch(
+      `https://62d647f215ad24cbf2d39b56.mockapi.io/crud/${id}`,
+      requestOptions
+    ).then(() => getData());
   };
 
   useEffect(() => {
@@ -49,6 +60,7 @@ const Post = () => {
         return (
           <ul key={id}>
             <li>{val.input} </li>
+            <button onClick={() => handalClose(val.id)}>Close</button>
           </ul>
         );
       })}
